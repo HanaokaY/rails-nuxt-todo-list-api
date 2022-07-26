@@ -1,0 +1,22 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['PG_USERNAME'] %>  # 追加
+  password: <%= ENV['PG_PASSWORD'] %>  # 追加
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: api_development
+
+test:
+  <<: *default
+  database: api_test
+
+production:
+  <<: *default
+  database: api_production
+  username: api
+  password: <%= ENV['API_DATABASE_PASSWORD'] %>
